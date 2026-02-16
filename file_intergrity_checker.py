@@ -56,13 +56,16 @@ while True:
         print()
         print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
         print()
+        
+        files_list = []
         for i in os.listdir(): 
             if i == ".git": # git something you don't want to create a hash for, so show as red
-                print(colored(i, "red"))
+                files_list.append(colored(i, "red"))
             elif i == "hashed_files":
-                print(colored(i, "red")) # hashed_files is directory so show as red
+                files_list.append(colored(i, "red")) # hashed_files is directory so show as red
             else:
-                print(colored(i, "green")) # Shows all the files in the directory
+                files_list.append(colored(i, "green")) # Shows all the files in the directory
+        print(".  ".join(files_list)) # Joins the list and outputs the files and not the raw colors, speprate by commas
         print()
         print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
         print()
