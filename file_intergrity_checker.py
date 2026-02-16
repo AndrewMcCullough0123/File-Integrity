@@ -56,7 +56,13 @@ while True:
         print()
         print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
         print()
-        print(os.listdir()) # Shows all the files in the directory
+        for i in os.listdir(): 
+            if i == ".git": # git something you don't want to create a hash for, so show as red
+                print(colored(i, "red"))
+            elif i == "hashed_files":
+                print(colored(i, "red")) # hashed_files is directory so show as red
+            else:
+                print(colored(i, "green")) # Shows all the files in the directory
         print()
         print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
         print()
