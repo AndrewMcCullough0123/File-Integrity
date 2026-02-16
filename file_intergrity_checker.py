@@ -17,10 +17,10 @@ def get_hash(filename):
         print(colored(f"File {filename} not found. please enter a valid file name.", "red"))
         print()
         print("Viable files ->",end = " ") # next line will show up on same line
-        
+        show_files() # Shows the files in the directory
         print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
         print()
-        return None
+        return None # When the file is not found, returns None, implements later in order to countinue the program and not break it when the file is not found.
 
 
 
@@ -91,7 +91,8 @@ while True:
 
         # Calls get_hash function and reads and gets hash and stores as a string in strating_hash 
         starting_hash = get_hash(filename)
-        
+        if starting_hash == None: # If the file is not found, it will return None, this command allows to not break program and still continue
+            continue 
         hash_value = open(stored_files_hashes, "w") # Opens the .integrity file in write mode to create it and write the hash value to it beucase Read does not create a file. 
         hash_value.write(starting_hash) # The current hash value of the file is added to the .integrity file
         hash_value.close()
