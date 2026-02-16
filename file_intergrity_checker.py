@@ -8,10 +8,19 @@ from termcolor import colored
 import time
 
 def get_hash(filename):
-    file = open(filename, "rb")
-    data = file.read()
-    file.close()
-    return hashlib.sha256(data).hexdigest()
+    try: 
+        file = open(filename, "rb")
+        data = file.read()
+        file.close()
+        return hashlib.sha256(data).hexdigest()
+    except FileNotFoundError:
+        print(colored(f"File {filename} not found. please enter a valid file name.", "red"))
+        print()
+        print("Viable files ->",end = " ") # next line will show up on same line
+        
+        print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
+        print()
+        return None
 
 
 
@@ -38,9 +47,20 @@ def check_file_integrity(filename):
             print()
     except FileNotFoundError: # Happens when the new .integrity file of a files hash does not exist yet.
         print(colored("File does not have a hash, create one", "cyan"))
-        print()
+        show_files() # Show the files you can use
         print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
         print()
+
+def show_files():
+    files_list = []
+    for i in os.listdir(): 
+        if i == ".git": # git something you don't want to create a hash for, so show as red
+            files_list.append(colored(i, "red"))
+        elif i == "hashed_files":
+            files_list.append(colored(i, "red")) # hashed_files is directory so show as red
+        else:
+            files_list.append(colored(i, "green")) # Shows all the files in the directory
+    print(".  ".join(files_list)) # Joins the list and outputs the files and not the raw colors, speprate by commas
 
 print(colored("---------------------------------------------File Integrity Checker---------------------------------------------", "yellow"))
 
@@ -56,16 +76,7 @@ while True:
         print()
         print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
         print()
-        
-        files_list = []
-        for i in os.listdir(): 
-            if i == ".git": # git something you don't want to create a hash for, so show as red
-                files_list.append(colored(i, "red"))
-            elif i == "hashed_files":
-                files_list.append(colored(i, "red")) # hashed_files is directory so show as red
-            else:
-                files_list.append(colored(i, "green")) # Shows all the files in the directory
-        print(".  ".join(files_list)) # Joins the list and outputs the files and not the raw colors, speprate by commas
+        show_files() # Shows the files in the directory
         print()
         print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
         print()
