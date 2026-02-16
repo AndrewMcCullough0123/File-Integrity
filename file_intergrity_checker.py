@@ -26,6 +26,8 @@ def get_hash(filename):
 
 # Need try becuase it may not work if its the first time running the program(No stored hash)
 def check_file_integrity(filename):  
+    stored_files_hashes = "hashed_files/" + filename + ".integrity"  # Needs to exist here and not just option one
+    starting_hash = get_hash(filename) 
     try:
         # If can't open/read, Raise a FileNotFoundError
         hash_value = open(stored_files_hashes, "r") # opens the stored hash in the read mode(Don't need to read the bytes("rb"))
@@ -62,6 +64,8 @@ def show_files():
             files_list.append(colored(i, "green")) # Shows all the files in the directory
     print(".  ".join(files_list)) # Joins the list and outputs the files and not the raw colors, speprate by commas
 
+
+
 print(colored("---------------------------------------------File Integrity Checker---------------------------------------------", "yellow"))
 
 while True:
@@ -89,10 +93,25 @@ while True:
     # Tells python which file to look at(adress)
         stored_files_hashes = "hashed_files/" + filename + ".integrity" 
 
+        
+
+        if filename == ".git" or filename == "hashed_files": # Has to be before starting hash becuase will crash if hash called before this 
+            print()
+            print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
+            print()
+            print(colored("You cannot create a hash for a directory.", "red"))
+            print()
+            print("Viable files ->",end = " ") 
+            show_files() 
+            print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
+            print()
+            continue 
+
         # Calls get_hash function and reads and gets hash and stores as a string in strating_hash 
         starting_hash = get_hash(filename)
         if starting_hash == None: # If the file is not found, it will return None, this command allows to not break program and still continue
             continue 
+            
         hash_value = open(stored_files_hashes, "w") # Opens the .integrity file in write mode to create it and write the hash value to it beucase Read does not create a file. 
         hash_value.write(starting_hash) # The current hash value of the file is added to the .integrity file
         hash_value.close()
@@ -126,4 +145,3 @@ while True:
         print(colored("Invalid input. Select 0, 1, 2, or 3.", "red"))
         print()
         print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
-
