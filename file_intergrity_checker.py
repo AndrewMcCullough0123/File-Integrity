@@ -121,4 +121,9 @@ while True:
             print(colored("Exiting the program.", "red"))
             break
     else:
+        print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
+        print()
         print(colored("Invalid input. Select 0, 1, 2, or 3.", "red"))
+        print()
+        print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
+
