@@ -1,5 +1,7 @@
 import hashlib
 
+# Used to add color
+import termcolor
 # Create a delay to make the shell Gooey look better(It'll seem like its "computing" more)
 import time
 
@@ -44,9 +46,10 @@ while True:
     user_input = input("Enter your choice: ")
 
     if user_input == "1":
-        time.sleep(2)
+        time.sleep(1)
     # Get the name of the file you are trying to check
         filename = input("Enter the name of the file you want to check: ")
+        print()
 
     # Tells python which file to look at(adress)
         stored_files_hashes = "hashed_files/" + filename + ".integrity" 
@@ -57,15 +60,16 @@ while True:
         hash_value = open(stored_files_hashes, "w") # Opens the .integrity file in write mode to create it and write the hash value to it beucase Read does not create a file. 
         hash_value.write(starting_hash) # The current hash value of the file is added to the .integrity file
         hash_value.close()
-        print(f"Hash value created for {filename} and stored successfully.")
+        print(f"[Hash value created for {filename} and stored successfully.]")
         print()
         print("-------------------------------------------------------------------------------------------------")
         print()
 
     elif user_input == "2":
-        time.sleep(2)
+        time.sleep(1)
         # Creates new input so the user can check the integrity of multiple files
         file_check = input("Enter the name of the file you want to check: ")
+        print()
         filename = file_check
         check_file_integrity(filename)
     elif user_input == "3":
