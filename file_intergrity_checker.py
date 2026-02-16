@@ -3,7 +3,7 @@ import hashlib
 # Used to look at files and directories
 import os
 # Used to add color
-import termcolor
+from termcolor import colored
 # Create a delay to make the shell Gooey look better(It'll seem like its "computing" more)
 import time
 
@@ -27,38 +27,38 @@ def check_file_integrity(filename):
             print()
             print("-------------------------------------------------------------------------------------------------")
             print()
-            print(f"File integrity of {filename} file is confirmed. The file has not been modified.")
+            print(colored(f"File integrity of {filename} file is confirmed. The file has not been modified.", "green"))
             print()
-            print("-------------------------------------------------------------------------------------------------")
+            print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
             print()
         else:
-            print(f"THE FILE {filename} HAS BEEN MODIFIED. THE HASH VALUES DO NOT MATCH.")
+            print(colored(f"THE FILE {filename} HAS BEEN MODIFIED. THE HASH VALUES DO NOT MATCH.", "red"))
             print()
-            print("-------------------------------------------------------------------------------------------------")
+            print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
             print()
     except FileNotFoundError: # Happens when the new .integrity file of a files hash does not exist yet.
-        print("File does not have a hash, create one")
+        print(colored("File does not have a hash, create one", "cyan"))
         print()
-        print("-------------------------------------------------------------------------------------------------")
+        print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
         print()
 
-print("---------------------------------------------File Integrity Checker---------------------------------------------")
+print(colored("---------------------------------------------File Integrity Checker---------------------------------------------", "yellow"))
 
 while True:
-    print("0) Show all files in the directory\n")
-    print("1) Create a file hash\n")
-    print("2) Check file integrity\n")
-    print("3) Exit\n")
+    print(colored("0) Show all files in the directory\n", "blue"))
+    print(colored("1) Create a file hash\n", "blue"))
+    print(colored("2) Check file integrity\n", "blue"))
+    print(colored("3) Exit\n", "red"))
     user_input = input("Enter your choice: ")
 
     if user_input == "0":
         time.sleep(1)
         print()
-        print("-------------------------------------------------------------------------------------------------")
+        print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
         print()
         print(os.listdir()) # Shows all the files in the directory
         print()
-        print("-------------------------------------------------------------------------------------------------")
+        print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
         print()
     elif user_input == "1":
         time.sleep(1)
@@ -75,12 +75,11 @@ while True:
         hash_value = open(stored_files_hashes, "w") # Opens the .integrity file in write mode to create it and write the hash value to it beucase Read does not create a file. 
         hash_value.write(starting_hash) # The current hash value of the file is added to the .integrity file
         hash_value.close()
-        print("-------------------------------------------------------------------------------------------------")
+        print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
         print()
-        print(f"[Hash value created for {filename} and stored successfully.]")
+        print(colored(f"[Hash value created for {filename} and stored successfully.]", "green"))
         print()
-        print("-------------------------------------------------------------------------------------------------")
-        print()
+        print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))       
 
     elif user_input == "2":
         time.sleep(1)
@@ -94,11 +93,11 @@ while True:
         decision = input("Are you sure you want to exit? (y/n): ")
         if decision == "n":
             print()
-            print("-------------------------------------------------------------------------------------------------")
+            print(colored("-------------------------------------------------------------------------------------------------", "light_yellow"))
             print()
             continue
         elif decision == "y":
-            print("Exiting the program.")
+            print(colored("Exiting the program.", "red"))
             break
     else:
-        print("Invalid input. Select 0, 1, 2, or 3.")
+        print(colored("Invalid input. Select 0, 1, 2, or 3.", "red"))
